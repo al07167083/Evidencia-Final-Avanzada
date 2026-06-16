@@ -1,0 +1,31 @@
+# Artefactos de construccion de Maven
+target/
+
+# Archivos y carpetas de NetBeans
+nbproject/private/
+nbbuild/
+nbdist/
+.nb-gradle/
+build/
+
+# Archivos compilados de Java
+*.class
+
+# Empaquetados
+*.war
+*.jar
+*.ear
+
+# Configuraciones locales de IDE
+.idea/
+*.iml
+.settings/
+.classpath
+.project
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
+
+# Configuracion local de NetBeans
+nb-configuration.xml
