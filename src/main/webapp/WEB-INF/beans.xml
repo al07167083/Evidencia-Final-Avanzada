@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Activa CDI en la aplicacion. Se deja en modo "annotated" (descubrimiento
+    solo de beans anotados). Este archivo, aunque quede vacio de beans, evita
+    errores de BeanManager al desplegar en GlassFish.
+-->
+<beans xmlns="https://jakarta.ee/xml/ns/jakartaee"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
+                           https://jakarta.ee/xml/ns/jakartaee/beans_3_0.xsd"
+       bean-discovery-mode="annotated"
+       version="3.0">
+</beans>
