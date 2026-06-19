@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- ============================================================
+         Coordenadas del proyecto
+         ============================================================ -->
+    <groupId>mx.tecmilenio</groupId>
+    <artifactId>imc-web</artifactId>
+    <version>1.0.0</version>
+    <packaging>war</packaging>
+    <name>Calculadora de IMC</name>
+    <description>Aplicacion web Jakarta EE (MVC + REST) para calcular y dar
+                 seguimiento al Indice de Masa Corporal de una persona.</description>
+
+    <!-- ============================================================
+         Propiedades: version de Java, codificacion y versiones de
+         dependencias centralizadas para facilitar el mantenimiento.
+         ============================================================ -->
+    <properties>
+        <maven.compiler.release>17</maven.compiler.release>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <jakartaee.version>9.1.0</jakartaee.version>
+        <mysql.version>8.0.33</mysql.version>
+        <war.plugin.version>3.4.0</war.plugin.version>
+        <compiler.plugin.version>3.11.0</compiler.plugin.version>
+    </properties>
+
+    <dependencies>
+        <!-- API completa de Jakarta EE 9.1. Se marca como "provided"
+             porque GlassFish 7.1.0 ya aporta la implementacion en tiempo
+             de ejecucion (Servlet, JSP, JAX-RS, JSON-B, JAXB, CDI). -->
+        <dependency>
+            <groupId>jakarta.platform</groupId>
+            <artifactId>jakarta.jakartaee-api</artifactId>
+            <version>${jakartaee.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Driver JDBC de MySQL. Se empaqueta dentro del WAR (scope
+             compile) para que ConexionBD pueda abrir la conexion con
+             DriverManager sin depender de librerias del dominio. -->
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>${mysql.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <!-- Nombre final del artefacto: imc-web.war -->
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <!-- Compila el codigo fuente con Java 17 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${compiler.plugin.version}</version>
+            </plugin>
+
+            <!-- Empaqueta la aplicacion como archivo WAR -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>${war.plugin.version}</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

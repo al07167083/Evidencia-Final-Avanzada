@@ -1,0 +1,197 @@
+/* =========================================================================
+   Estilos de la calculadora de IMC.
+   Diseno limpio y responsivo, pensado sobre todo para pantallas de celular.
+   ========================================================================= */
+
+:root {
+    --verde: #2C7A4B;
+    --verde-oscuro: #1F5A37;
+    --gris-fondo: #F4F6F5;
+    --gris-texto: #333333;
+    --gris-borde: #D9DEDB;
+    --rojo: #C0392B;
+    --blanco: #FFFFFF;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background-color: var(--gris-fondo);
+    color: var(--gris-texto);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.tarjeta {
+    background-color: var(--blanco);
+    width: 100%;
+    max-width: 420px;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    padding: 28px 24px;
+    margin-top: 24px;
+}
+
+h1 {
+    color: var(--verde-oscuro);
+    font-size: 1.5rem;
+    margin-bottom: 4px;
+    text-align: center;
+}
+
+.subtitulo {
+    text-align: center;
+    color: #777;
+    font-size: 0.9rem;
+    margin-bottom: 22px;
+}
+
+label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin: 12px 0 4px;
+}
+
+input, select {
+    width: 100%;
+    padding: 11px 12px;
+    border: 1px solid var(--gris-borde);
+    border-radius: 10px;
+    font-size: 1rem;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--verde);
+}
+
+button {
+    width: 100%;
+    margin-top: 20px;
+    padding: 13px;
+    background-color: var(--verde);
+    color: var(--blanco);
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: var(--verde-oscuro);
+}
+
+.enlace {
+    display: block;
+    text-align: center;
+    margin-top: 16px;
+    color: var(--verde);
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.ayuda {
+    font-size: 0.78rem;
+    color: #888;
+    margin-top: 3px;
+}
+
+.mensaje-error {
+    background-color: #FDEDEC;
+    color: var(--rojo);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+}
+
+.mensaje-ok {
+    background-color: #EAF6EF;
+    color: var(--verde-oscuro);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+}
+
+/* Resultado del calculo del IMC */
+.resultado {
+    text-align: center;
+    margin-top: 22px;
+    padding: 18px;
+    border-radius: 12px;
+    background-color: var(--gris-fondo);
+}
+
+.resultado .valor {
+    font-size: 2.6rem;
+    font-weight: 700;
+    color: var(--verde-oscuro);
+}
+
+.resultado .categoria {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: 4px;
+}
+
+/* Barra de clasificacion por colores */
+.barra {
+    display: flex;
+    height: 12px;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-top: 14px;
+}
+.barra span { flex: 1; }
+.b-bajo { background: #5DADE2; }
+.b-normal { background: #58D68D; }
+.b-sobre { background: #F5B041; }
+.b-obes { background: #EC7063; }
+
+/* Tabla del historico */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 14px;
+    font-size: 0.85rem;
+}
+
+th, td {
+    padding: 9px 8px;
+    text-align: center;
+    border-bottom: 1px solid var(--gris-borde);
+}
+
+th {
+    background-color: var(--verde);
+    color: var(--blanco);
+    font-weight: 600;
+}
+
+tr:nth-child(even) td {
+    background-color: #FAFBFA;
+}
+
+.barra-cabecera {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.barra-cabecera .usuario {
+    font-size: 0.85rem;
+    color: #666;
+}
