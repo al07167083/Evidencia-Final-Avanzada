@@ -1,0 +1,120 @@
+@startuml
+title Diagrama de clases - Calculadora de IMC (arquitectura MVC)
+
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam packageStyle rectangle
+skinparam class {
+  BackgroundColor #F4F6F5
+  BorderColor #2C7A4B
+  ArrowColor #1F5A37
+}
+
+package "Vista (JSP)" #EAF6EF {
+  class "index.jsp" as index
+  class "registro.jsp" as vregistro
+  class "login.jsp" as vlogin
+  class "calcular.jsp" as vcalcular
+  class "historico.jsp" as vhistorico
+}
+
+package "Controlador" #FDF3E7 {
+  class RegistroServlet {
+    +doPost()
+  }
+  class LoginServlet {
+    +doPost()
+  }
+  class IMCServlet {
+    +doPost()
+  }
+  class LogoutServlet {
+    +doGet()
+  }
+  class HistoricoRESTService {
+    +obtenerHistorico() : Response
+  }
+  class HistoricoResponse {
+    -idUsuario : int
+    -total : int
+    -registros : List<RegistroIMC>
+    -enlaces : List<Enlace>
+  }
+  class Enlace {
+    -rel : String
+    -href : String
+    -metodo : String
+  }
+  class ErrorResponse {
+    -codigo : int
+    -mensaje : String
+  }
+}
+
+package "Modelo" #EAF0F6 {
+  class Usuario {
+    -idUsuario : int
+    -nombreCompleto : String
+    -nombreUsuario : String
+    -contrasena : String
+    -edad : int
+    -sexo : char
+    -estatura : double
+  }
+  class RegistroIMC {
+    -idRegistro : int
+    -idUsuario : int
+    -peso : double
+    -imc : double
+    -clasificacion : String
+    -fechaMedicion : String
+  }
+  class CalculadoraIMC {
+    +calcular(peso, estatura) : double
+    +clasificar(imc) : String
+  }
+  class UsuarioDAO {
+    +existeUsuario() : boolean
+    +registrar(Usuario) : int
+    +validarLogin() : Usuario
+  }
+  class RegistroIMCDAO {
+    +guardar(RegistroIMC)
+    +obtenerHistorico(id) : List<RegistroIMC>
+  }
+  class ConexionBD {
+    +obtenerConexion() : Connection
+  }
+  class PasswordUtil {
+    +cifrar(String) : String
+    +verificar() : boolean
+  }
+}
+
+' ---- Relaciones Vista -> Controlador ----
+vregistro ..> RegistroServlet
+vlogin ..> LoginServlet
+vcalcular ..> IMCServlet
+vhistorico ..> HistoricoRESTService
+
+' ---- Controlador -> Modelo ----
+RegistroServlet ..> UsuarioDAO
+LoginServlet ..> UsuarioDAO
+IMCServlet ..> CalculadoraIMC
+IMCServlet ..> RegistroIMCDAO
+HistoricoRESTService ..> RegistroIMCDAO
+HistoricoRESTService ..> HistoricoResponse
+HistoricoResponse o--> "0..*" Enlace
+HistoricoResponse o--> "0..*" RegistroIMC
+HistoricoRESTService ..> ErrorResponse
+
+' ---- Modelo interno ----
+UsuarioDAO ..> ConexionBD
+RegistroIMCDAO ..> ConexionBD
+UsuarioDAO ..> PasswordUtil
+UsuarioDAO ..> Usuario
+RegistroIMCDAO ..> RegistroIMC
+RegistroIMCDAO ..> CalculadoraIMC
+Usuario "1" --> "0..*" RegistroIMC : tiene
+
+@enduml

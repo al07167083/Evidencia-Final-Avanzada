@@ -1,0 +1,35 @@
+@startuml
+title Modelo entidad-relacion - Base de datos imc_db
+
+skinparam shadowing false
+skinparam linetype ortho
+hide circle
+skinparam class {
+  BackgroundColor #F4F6F5
+  BorderColor #2C7A4B
+  ArrowColor #1F5A37
+}
+
+entity "usuario" as usuario {
+  * id_usuario : INT <<PK>>
+  --
+  * nombre_completo : VARCHAR(100)
+  * nombre_usuario : VARCHAR(50) <<UNIQUE>>
+  * contrasena : VARCHAR(255)
+  * edad : INT (>= 15)
+  * sexo : CHAR(1)
+  * estatura : DECIMAL(3,2)
+}
+
+entity "registro_imc" as registro {
+  * id_registro : INT <<PK>>
+  --
+  * id_usuario : INT <<FK>>
+  * peso : DECIMAL(5,2) (> 0)
+  * imc : DECIMAL(5,2)
+  * fecha_medicion : DATETIME
+}
+
+usuario ||--o{ registro : "1 a muchos"
+
+@enduml
